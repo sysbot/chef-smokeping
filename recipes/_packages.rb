@@ -18,7 +18,7 @@
 
 include_recipe 'perl'
 
-%w(fping smokeping curl libauthen-radius-perl libnet-ldap-perl libnet-dns-perl libio-socket-ssl-perl libnet-telnet-perl libsocket6-perl libio-socket-inet6-perl sendmail rrdtool).each do |pkg|
+%w(fping smokeping curl libauthen-radius-perl libnet-ldap-perl libnet-dns-perl libio-socket-ssl-perl libnet-telnet-perl libsocket6-perl libio-socket-inet6-perl rrdtool).each do |pkg|
   package pkg do
     action :install
   end
@@ -29,12 +29,12 @@ service 'smokeping' do
   action :nothing
 end
 
-template "smokeping" do
-  path "/etc/init.d/smokeping"
-  source "smokeping.init.erb"
-  owner "root"
-  group "root"
-  mode "0755"
-  notifies :enable, "service[smokeping]"
-  notifies :start, "service[smokeping]"
+template 'smokeping' do
+  path '/etc/init.d/smokeping'
+  source 'smokeping.init.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  notifies :enable, 'service[smokeping]'
+  notifies :start, 'service[smokeping]'
 end
